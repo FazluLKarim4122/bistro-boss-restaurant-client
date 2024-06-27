@@ -4,7 +4,7 @@ const MenuItem = ({item}) => {
     const {image, price, name, recipe}= item;
     return (
         <div className='flex space-x-4'>
-            <img className='w-[118px] h-[104px]' src={image} alt="" />
+            <img  className='w-[118px] h-[104px] rounded-tl-none rounded-tr-[200px] rounded-br-[200px] rounded-bl-[200px]' src={image} alt="" />
             <div>
                 <h3 className='text-xl font-normal'>{name}</h3>
                 <p className='font-normal text-[#737373]'>{recipe}</p>
