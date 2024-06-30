@@ -12,7 +12,7 @@ const Home = () => {
             <PopularMenu></PopularMenu>
             <Freatured></Freatured>
             <Testimonials></Testimonials>
-            <h1>This is home</h1>
+           
         </div>
     );
 };
