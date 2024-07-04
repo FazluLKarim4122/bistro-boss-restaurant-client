@@ -31,14 +31,15 @@ const Menu = () => {
             <SectionTitle subHeading="Don't Miss" heading="today's offer"></SectionTitle>
             <MenuCategory items={offered} ></MenuCategory>
             {/* dessert menu items */}
-            <MenuCategory items={dessert} title="Dessert" coverImg={dessertBg}></MenuCategory>
+            {/* title গুলা ‍small letter এ দেই পরবর্তীতে condition match করতে কাজে লাগবে। এই title দিয়েই order page এ নিয়ে যাইতে পারি।*/}
+            <MenuCategory items={dessert} title="dessert" coverImg={dessertBg}></MenuCategory>
             {/* pizza menu items */}
-            <MenuCategory items={pizza} title="Pizza" coverImg={pizzaBg}></MenuCategory>
+            <MenuCategory items={pizza} title="pizza" coverImg={pizzaBg}></MenuCategory>
             {/* salad menu items */}
-            <MenuCategory items={salad} title="Salad" coverImg={saladBg}></MenuCategory>
+            <MenuCategory items={salad} title="salad" coverImg={saladBg}></MenuCategory>
             {/* soup menu items */}
-            <MenuCategory items={soup} title="Soup" coverImg={soupBg}></MenuCategory>
-
+            <MenuCategory items={soup} title="soup" coverImg={soupBg}></MenuCategory>
+            
         </div>
     );
 };

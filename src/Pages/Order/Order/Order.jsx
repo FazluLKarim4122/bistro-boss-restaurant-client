@@ -7,10 +7,19 @@ import 'react-tabs/style/react-tabs.css';
 import FoodCard from '../../../Components/FoodCard/FoodCard';
 import useMenu from '../../../Hooks/useMenu/useMenu';
 import OrderTab from '../OrderTab/OrderTab';
+import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const Order = () => {
-    const [tabIndex, setTabIndex]= useState(0)
+    // click অনুযায়ী exact tab এ যেতে হলে আমাদের index set করতে হবে।
+    const categories = ['salad', 'pizza', 'soup', 'dessert','drinks']
+    const {category} = useParams() //routes এ /order/:category দিয়েছি সেটাই distructure করলাম
+    const initialIndex = categories.indexOf(category) // categories array এর indexOf check করবো category টার
+    //const [tabIndex, setTabIndex]= useState(0) index করার পূর্বে এটা 
+    const [tabIndex, setTabIndex]= useState(initialIndex)
     const [menu]= useMenu()
+    // Order এ আসার পরে কোন route এ আসছি তা জানার জন্য
+    console.log(category);
     const salad = menu.filter((item)=> item.category === "salad")
     const pizza = menu.filter((item)=> item.category === "pizza")
     const soup = menu.filter((item)=> item.category === "soup")
@@ -18,6 +27,9 @@ const Order = () => {
     const drinks = menu.filter((item)=> item.category === "drinks")
     return (
         <div>
+            <Helmet>
+                <title>Order Food</title> 
+            </Helmet>
             <Cover img={orderCover} title='order food'></Cover>
             {/* <div role="tablist" className="tabs tabs-boxed">
                 <a role="tab" className="tab">Tab 1</a>
