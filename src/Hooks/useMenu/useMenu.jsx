@@ -6,7 +6,7 @@ const useMenu = () => {
     // যখন কেউ কল করবে loading state চালু হয়ে যাবে। ডাটা লোডিংয়ের জন্য।
     console.log(menu);
     useEffect( ()=>{
-        fetch('menu.json')
+        fetch('http://localhost:5500/menu')
         .then(res => res.json())
         .then(data => {setMenu(data)
             setLoading(false)
