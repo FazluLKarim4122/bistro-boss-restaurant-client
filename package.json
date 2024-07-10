@@ -12,6 +12,7 @@
   "dependencies": {
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@smastrom/react-rating": "^1.5.0",
+    "firebase": "^10.12.3",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "react": "^18.3.1",
