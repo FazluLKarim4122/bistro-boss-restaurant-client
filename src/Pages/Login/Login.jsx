@@ -1,10 +1,12 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import React from 'react';
+import { useContext, useEffect,  useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../ProviedrsOrContext/AuthProvider';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Login = () => {
-    const captchaRef= useRef(null)
+    //const captchaRef= useRef(null)
     const [disabled, setDisabled]= useState(true)
     const {login}=useContext(AuthContext)
     useEffect(()=>{
@@ -26,6 +28,27 @@ const Login = () => {
         login(email,password)
         .then(result =>{
             const user = result.user
+            if(result.user){
+                // alert('Login Successfull')
+                Swal.fire({
+                    title: "Login Successfull",
+                    showClass: {
+                      popup: `
+                        animate__animated
+                        animate__fadeInUp
+                        animate__faster
+                      `
+                    },
+                    hideClass: {
+                      popup: `
+                        animate__animated
+                        animate__fadeOutDown
+                        animate__faster
+                      `
+                    }
+                  });
+                form.reset()
+            }
         })
         .catch(error =>{
             const errorLine = error.message;
@@ -34,8 +57,10 @@ const Login = () => {
         })
     }
 
-    const handleCaptchaValidate =()=>{
-        const user_captcha_value = captchaRef.current.value;
+    const handleCaptchaValidate =(e)=>{
+        //ref এর পরিবর্তে event.target use করলাম
+       // const user_captcha_value = captchaRef.current.value;
+        const user_captcha_value = e.target.value;
         console.log(user_captcha_value);
         if(validateCaptcha(user_captcha_value)){
             setDisabled(false)
@@ -73,16 +98,17 @@ const Login = () => {
                             </div>
                             <div className="form-control">
                                 <label className='label'>
-                                < LoadCanvasTemplate />
+                                < LoadCanvasTemplateNoReload />
                                 </label>
-                                <input ref={captchaRef} type="text" name='captcha' placeholder="Type the captcha above" className="input input-bordered" required />
-                                <button onClick={handleCaptchaValidate}  className='btn btn-outline btn-xs'>Validate</button>
+                                {/* input এর field যদি change হয় তাহলে onChange হবে। ref এর পরিবর্তে evernt.target use করলাম , এজন্য input থেকে ref={captchaRef} উঠিয়ে দিলাম। */}
+                                <input  onChange={handleCaptchaValidate} type="text" name='captcha' placeholder="Type the captcha above" className="input input-bordered" required />
+                                {/* <button onClick={handleCaptchaValidate}  className='btn btn-outline btn-xs'>Validate</button> */}
                             </div>
                             <div className="form-control mt-6">
 
                                 <input disabled={disabled} className="btn btn-primary" type="submit" value="Login" />
                             </div>
-                            <p className='text-[#D1A054] text-center'>New here?<Link to='/signup'><a href="" className='link'>Create a New Account</a></Link></p>
+                            <p className='text-[#D1A054] text-center'>New here?<Link to='/signup'><span className='link'>Create a New Account</span></Link></p>
                         </form>
                     </div>
                 </div>

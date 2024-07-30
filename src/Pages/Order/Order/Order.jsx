@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import orderCover from '../../../assets/shop/order.jpg';
 import Cover from '../../Shared/Cover/Cover';
