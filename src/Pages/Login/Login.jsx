@@ -100,8 +100,10 @@ const Login = () => {
                                 <label className='label'>
                                 < LoadCanvasTemplateNoReload />
                                 </label>
-                                {/* input এর field যদি change হয় তাহলে onChange হবে। ref এর পরিবর্তে evernt.target use করলাম , এজন্য input থেকে ref={captchaRef} উঠিয়ে দিলাম। */}
-                                <input  onChange={handleCaptchaValidate} type="text" name='captcha' placeholder="Type the captcha above" className="input input-bordered" required />
+                                {/* input এর field যদি change হয় তাহলে onChange হবে। ref এর পরিবর্তে evernt.target use করলাম , এজন্য input থেকে ref={captchaRef} উঠিয়ে দিলাম। onChange={handleCaptchaValidate} use করলে প্রতি type এ captcha change হয়ে যাবে, তাই onBlur use করবো
+                                The issue with the CAPTCHA reloading on every keystroke is because onChange triggers every time the input value changes. This can cause the CAPTCHA component to re-render and reload. Switching to onBlur only triggers the validation when the input loses focus, which prevents the frequent reloading.
+                                */}
+                                <input  onBlur={handleCaptchaValidate} type="text" name='captcha' placeholder="Type the captcha above" className="input input-bordered" required />
                                 {/* <button onClick={handleCaptchaValidate}  className='btn btn-outline btn-xs'>Validate</button> */}
                             </div>
                             <div className="form-control mt-6">
