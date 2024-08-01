@@ -2,13 +2,16 @@ import React from 'react';
 import { useContext, useEffect,  useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../ProviedrsOrContext/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const Login = () => {
     //const captchaRef= useRef(null)
     const [disabled, setDisabled]= useState(true)
     const {login}=useContext(AuthContext)
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/"
     useEffect(()=>{
         
             loadCaptchaEnginge(6); 
@@ -48,6 +51,7 @@ const Login = () => {
                     }
                   });
                 form.reset()
+                navigate(from,{ replace: true})
             }
         })
         .catch(error =>{

@@ -13,6 +13,7 @@ const Navbar = () => {
         <li><NavLink to='/'>Home</NavLink> </li>
         <li><NavLink to='/menu'>Our Menu</NavLink> </li>
         <li><NavLink to='/order/salad'>Order Food</NavLink> </li>
+        <li><NavLink to='/secret'>Secret</NavLink> </li>
         {
             user ? <>
             <buton onClick={handleLogout} className='btn btn-ghost'>Logout </buton>
