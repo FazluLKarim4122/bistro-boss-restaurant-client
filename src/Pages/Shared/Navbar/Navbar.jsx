@@ -16,6 +16,8 @@ const Navbar = () => {
         <li><NavLink to='/secret'>Secret</NavLink> </li>
         {
             user ? <>
+            {/* <span>{user?.displayName}</span> */}
+            {/* যদি কখনো নাম, ছবি না আসে তাহলে logOut টাকে ‍signUp এ updateUserProfile এ then এর মধ্যে navigate এর যায়গায় logOut বসিয়ে সেখানে then এর মধ্যে navigate করে দিবো home page কে। */}
             <buton onClick={handleLogout} className='btn btn-ghost'>Logout </buton>
             </> : <>
             <li><NavLink to='/login'>Login</NavLink> </li>
@@ -57,7 +59,14 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
+                    {
+                        user? <>
+                        <div className='flex space-x-2'>
+                        <b className='text-lg text-orange-300'>{user?.displayName}</b> 
+                        <img className='h-10 w-10'  src={user?.photoURL} alt="" /> 
+                        </div></> : 
                     <a className="btn">Button</a>
+                    }
                 </div>
             </div>
         </div>

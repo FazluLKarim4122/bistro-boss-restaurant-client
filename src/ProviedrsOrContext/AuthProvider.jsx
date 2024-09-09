@@ -1,6 +1,6 @@
 import React from 'react';
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { app } from "../Firebase/Firebase.config";
 
 export const AuthContext = createContext(null)
@@ -27,6 +27,12 @@ const AuthProvider = ({children}) => {
         return signOut(auth)
     }
 
+    const updateUserProfile = (name, photo) =>{
+        return updateProfile(auth.currentUser, {
+            displayName: name, photoURL: photo})
+          
+    }
+
     
     //user এর auth change হইলে আমরা onAuthStateChanged use করি। outside এর api কে hit করবে এ জন্য useEffect এর মধ্যে রাখবো এবং সে এটা একবারই করবে, এবং সে একটা জিনিস কে subscribe করে রাখে।
     // unsubscribe return করতে হবে, কারণ এই onAuthStateChanged সে watch করতে থাকবে কোন একটা কিছু change হইছে কিনা তারপর change হয়ে গেলে থাকবে, যদি ঐ application টা off করে দেই তহলে সেই জায়গাটায় আর watch করা থাকবে না।
@@ -48,6 +54,7 @@ const AuthProvider = ({children}) => {
         createUser,
         login,
         logOut,
+        updateUserProfile
         
     }
     return (

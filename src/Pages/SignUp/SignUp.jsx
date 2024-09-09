@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { CiFacebook } from "react-icons/ci";
 import { FaGoogle } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from "../../ProviedrsOrContext/AuthProvider";
 
 const SignUp = () => {
@@ -15,7 +15,10 @@ const SignUp = () => {
         reset, // Importing reset method from react-hook-form
         formState: { errors },
     } = useForm()
-    const {createUser} = useContext(AuthContext)
+    const {createUser, updateUserProfile, logOut} = useContext(AuthContext)
+
+    //user create হইলে homepage এ নিয়ে যাব
+    const navigate = useNavigate()
 
     const onSubmit = (data) => {
         console.log(data)
@@ -23,9 +26,23 @@ const SignUp = () => {
         .then(result => {
             const loggedUser = result.user;
             console.log(loggedUser);
+            updateUserProfile(data.name, data.photoURL)
+            .then(()=>{
+                console.log('User profile info Updated');
+                logOut()
+                .then(()=>{
+                    navigate('/')
+                })
+                .catch(error =>{console.log(error.message);})
+            })
+            .catch( error =>{
+                console.log(error.message);
+            });
+            
             if(loggedUser){
                 alert('User Created Successfully')
                 reset()
+                // navigate('/')
             }
         })
         .catch(error =>{
